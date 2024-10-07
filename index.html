@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kartu Ucapan untuk Zhen</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, #001f3f 0%, #87CEEB 100%); /* Biru malam di atas, biru muda di bawah */
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Menambahkan awan di atas */
+    .clouds {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: url('https://i.imgur.com/f4BzrZT.png') repeat-x; /* Gambar awan */
+      animation: moveClouds 60s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes moveClouds {
+      from { background-position: 0; }
+      to { background-position: 10000px; }
+    }
+
+    /* Menambahkan bintang kecil berkelap-kelip */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
+    }
+
+    .card-container {
+      perspective: 1000px; /* Memberikan efek 3D */
+    }
+
+    .card {
+      width: auto;
+      max-width: 600px;
+      background-color: white;
+      border: 2px dashed #1E90FF;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      min-height: 100px;
+      margin-bottom: 20px;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      animation: fadeIn 0.8s ease-in-out, slideIn 0.8s ease-in-out;
+    }
+
+    .card p {
+      font-size: 18px;
+      color: #333;
+      margin: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #1E90FF;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0058a3;
+    }
+
+    /* Menambahkan teks "Zhen & Zein" di bawah */
+    .footer-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5); /* Warna putih samar */
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      font-weight: lighter;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateZ(-100px) rotateY(-90deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateZ(0) rotateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+    }
+
+    @keyframes confetti {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(300px); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: transparent;
+      animation: confetti 3s linear infinite;
+      border-radius: 50%;
+    }
+
+    .confetti:nth-child(odd) {
+      animation-duration: 2.5s;
+    }
+
+    .confetti:nth-child(even) {
+      animation-duration: 3.5s;
+    }
+
+    .confetti.red { background-color: #ff4b5c; }
+    .confetti.blue { background-color: #1E90FF; }
+    .confetti.green { background-color: #32CD32; }
+    .confetti.yellow { background-color: #FFD700; }
+    .confetti.purple { background-color: #8A2BE2; }
+  </style>
+</head>
+<body>
+
+  <!-- Bintang yang berkelap-kelip -->
+  <div class="stars">
+    <div class="star" style="top: 50px; left: 10%;"></div>
+    <div class="star" style="top: 80px; left: 30%;"></div>
+    <div class="star" style="top: 120px; left: 50%;"></div>
+    <div class="star" style="top: 150px; left: 70%;"></div>
+    <div class="star" style="top: 100px; left: 90%;"></div>
+  </div>
+
+  <!-- Bayangan awan di atas -->
+  <div class="clouds"></div>
+
+  <div class="card-container">
+    <div class="card" id="card">
+      <p id="text">Assalamualaikum warahmatullahi wabarakatuh, selamat datang ka Zhen</p>
+    </div>
+  </div>
+  
+  <button class="btn" onclick="nextSlide()">Next</button>
+
+  <!-- Nama Zhen & Zein -->
+  <div class="footer-text">Zhen & Zein</div>
+
+<script>
+  const messages = [
+    "Assalamualaikum warahmatullahi wabarakatuh, selamat datang ka Zhen",
+    "Aku mau sedikit cerita tentang KK dariku",
+    "Selamat membaca :)",
+    "Kebaikanmu selalu membuatku merasa bahwa dunia ini penuh kehangatan.",
+    "Setiap kali aku melihat kepintaranmu, aku semakin bersyukur memiliki seseorang secerdas dirimu di hidupku.",
+    "Sholehahmu mengajarkanku untuk selalu mendekatkan diri kepada Allah dengan hati yang ikhlas, seperti yang kau lakukan.",
+    "Ka Zhen, cerdasmu bukan hanya dalam pikiran, tapi juga dalam menjaga perasaan orang lain.",
+    "Kebaikanmu adalah cahaya yang tak pernah redup, selalu membuat hari-hariku lebih bermakna.",
+    "Pintarnya kamu mengelola waktu dan hidup membuatku selalu kagum dan ingin belajar banyak darimu.",
+    "Aku merasa beruntung mengenal seseorang sebaik, secerdas, dan sesholehah dirimu.",
+    "Kecerdasanmu tidak hanya terpancar dari kata-katamu, tapi juga dari tindakanmu yang penuh makna.",
+    "Di setiap doa, aku memohon agar bisa selalu bersanding dengan sosok seindah hatimu.",
+    "Sholehahmu mengingatkanku untuk selalu bersabar dan bersyukur, kau benar-benar inspirasiku.",
+    "Dengan kepintaranmu, kau selalu tahu cara menenangkan hatiku saat dunia terasa berat.",
+    "Kebaikanmu selalu menjadi penyemangat bagiku untuk menjadi orang yang lebih baik setiap harinya.",
+    "Melihat kecerdasanmu, aku merasa seperti sedang belajar tentang hidup dan cinta dari seorang guru terbaik.",
+    "Kamu adalah perpaduan sempurna antara kecerdasan, kebaikan, dan keimanan yang membuatku jatuh hati setiap saat.",
+    "Ka Zhen, dalam setiap langkahmu yang baik, sholehah, dan cerdas, aku menemukan alasan untuk terus memperbaiki diriku.",
+    "I LOVE YOU ZHEN"
+  ];
+
+  let currentMessage = 0;
+  const card = document.getElementById("card");
+  const textElement = document.getElementById("text");
+
+  function nextSlide() {
+    // Animasi keluar
+    card.style.animation = "slideOut 0.8s ease-in-out";
+    
+    card.addEventListener('animationend', function() {
+      // Reset animasi
+      card.style.animation = "";
+
+      // Ganti teks
+      currentMessage++;
+      if (currentMessage < messages.length) {
+        textElement.textContent = messages[currentMessage];
+
+        // Jika sampai di kalimat terakhir, tampilkan konfeti
+        if (currentMessage === messages.length - 1) {
+          showConfetti();
+        }
+
+        // Animasi masuk
+        card.style.animation = "slideIn 0.8s ease-in-out";
+      }
+    }, { once: true });
+  }
+
+  // Fungsi untuk menampilkan konfeti warna-warni
+  function showConfetti() {
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.classList.add(getRandomConfettiColor());
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+      confetti.style.opacity = Math.random();
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 5000); // Hapus setelah 5 detik
+    }
+  }
+
+  // Fungsi untuk memilih warna konfeti secara acak
+  function getRandomConfettiColor() {
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+</script>
