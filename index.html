@@ -23,18 +23,6 @@
       position: relative;
     }
 
-    /* Menambahkan awan di atas */
-    .clouds {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 150px;
-      background: url('https://i.imgur.com/f4BzrZT.png') repeat-x; /* Gambar awan */
-      animation: moveClouds 60s linear infinite;
-      opacity: 0.8;
-    }
-
     @keyframes moveClouds {
       from { background-position: 0; }
       to { background-position: 10000px; }
